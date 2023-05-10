@@ -1,19 +1,18 @@
-import sys
 from collections import deque
+import sys
 
-def bfs(v):
-    q = deque([v])
-    while q:
-        v = q.popleft()
-        if v == k:
-            return array[v]
-        for next_v in (v-1, v+1, 2*v):
-            if 0 <= next_v < MAX and not array[next_v]:
-                array[next_v] = array[v] + 1
-                q.append(next_v)
+N,K = map(int,sys.stdin.readline().split())
+cnt = [0 for i in range(100001)]
 
+def bfs(s):
+    que = deque([s])
+    while que:
+        x = que.popleft()
+        if x == K:
+            return cnt[K]
+        for i in (x-1,x+1,x*2):
+            if 0 <= i < 100001 and not cnt[i]:
+                cnt[i] = cnt[x] + 1
+                que.append(i)
 
-MAX = 100001
-n, k = map(int, sys.stdin.readline().split())
-array = [0] * MAX
-print(bfs(n))
+print(bfs(N))
