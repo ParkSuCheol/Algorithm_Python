@@ -16,7 +16,7 @@ public class Main {
             int y2 = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(br.readLine());
             int count = 0;
-            for(int i = 0; i < n; i++){
+            for(int i = 0; i < n; i++) {
                 st = new StringTokenizer(br.readLine());
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
