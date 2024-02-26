@@ -14,32 +14,14 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             A = Integer.parseInt(st.nextToken());
             B = Integer.parseInt(st.nextToken());
-            System.out.println(LCM(A,B));
+            System.out.println(A * B / GCD(A,B));
         }
     }
 
-    public static void GCD(int A, int B){
-        if(B == 0) {
-            minNum = A;
-            return;
-        }
-        if(A > B){
-            tmp = B;
-            B = A % B;
-            A = tmp;
-            GCD(A,B);
-        }else{
-            tmp = A;
-            A = B;
-            B = tmp;
-            tmp = B;
-            B = A % B;
-            A = tmp;
-            GCD(A,B);
-        }
-    }
-    public static int LCM(int A, int B){
-        GCD(A,B);
-        return A*B / minNum;
+    public static int GCD(int A, int B){
+        if (A % B == 0)
+            return B;
+        else
+            return GCD(B, A % B);
     }
 }
