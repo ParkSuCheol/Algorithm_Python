@@ -1,26 +1,33 @@
 class Solution {
     public int solution(int[] bandage, int health, int[][] attacks) {
-        
-        int life = health;
-        int attackIdx = 0;
-        int heal = 0;
-        
-        for (int i = 1; i <= attacks[attacks.length-1][0]; i++){
-            if (i != attacks[attackIdx][0]){
-                life += bandage[1];
-                heal++;
-                if (heal == bandage[0]){
-                    life += bandage[2];
-                    heal = 0;
+        int answer = health;
+        int time = bandage[0];
+        int heal = bandage[1];
+        int healMax = bandage[2];
+        int lastTime = attacks[attacks.length-1][0];
+        int cnt = 0;
+        int index = 0;
+
+        for(int i = 1; i <= lastTime; i++){
+            int attackTime = attacks[index][0];
+            int damage = attacks[index][1];
+            if(attackTime == i){
+                health -= damage;
+                cnt = 0;
+                index++;
+                if(health <= 0)
+                    return -1;
+            }else{
+                health += heal;
+                cnt++;
+                if(time == cnt){
+                    health += healMax;
+                    cnt = 0;
                 }
-                if (life > health) life = health;
-            } else {
-                heal = 0;
-                life -= attacks[attackIdx][1];
-                attackIdx++;
-                if (life <= 0) return -1;
+                if(health >= answer)
+                    health = answer;
             }
         }
-        return life;
+        return health;
     }
 }
