@@ -18,19 +18,24 @@ public class Main {
         Arrays.sort(arr);
         StringBuilder sb = new StringBuilder();
 
+        int[] arr1 = new int[2];
+
         end:for(int i = 0; i < 9; i++){
             for(int j = i+1; j < 9; j++){
                 if(sum - arr[i] - arr[j] == 100){
-                    for(int k = 0; k < 9; k++){
-                        if(i == k || j == k){
-                            continue;
-                        }
-                        sb.append(arr[k]).append('\n');
-                    }
+                    arr1[0] = i;
+                    arr1[1] = j;
                     break end;
                 }
             }
         }
+        
+        for(int i = 0; i < 9; i++){
+            if(i == arr1[0] || i == arr1[1])
+                continue;
+            sb.append(arr[i]).append('\n');
+        }
+        
 
         bw.write(sb.toString());
         bw.flush();
