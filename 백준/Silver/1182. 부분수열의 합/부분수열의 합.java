@@ -1,38 +1,43 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	static int N, S, ans;
-	static int[] nums;
+    static int N;
+    static int S;
+    static int[] arr;
+    static int res;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        S = Integer.parseInt(st.nextToken());
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		S = sc.nextInt();
-		nums = new int[N + 1];
-		for (int i = 1; i <= N; i++) {
-			nums[i] = sc.nextInt();
-		}
-		rec_func(1, 0);
-		// ans가 정말 "진 부분집합" 만 다루는지 확인하기
-		if( S == 0)
-			ans--;
-		System.out.println(ans);
-	}
+        arr = new int[N];
+        res = 0;
+        st = new StringTokenizer(br.readLine());
 
-	// k번째 원소를 포함시킬지 정하는 함수
-	// value:= k-1 번째 원소까지 골라진 원소들의 합
-	static void rec_func(int k, int value) {
-		if (k == N + 1) { // 부분 수열을 하나 완성 시킨 상태
-			// value 가 S랑 같은지 확인하기
-			if (value == S)
-				ans++;
-		} else {
-			// k번째 원소를 포함시킬지 결정하고 재귀호출해주기
-			// Include
-			rec_func(k + 1, value + nums[k]);
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
 
-			// Not Include
-			rec_func(k + 1, value);
-		}
-	}
+        dfs(0,0);
+
+        if (S == 0)
+            res--;
+
+        System.out.println(res);
+
+    }
+    public static void dfs(int idx, int sum){
+        if (idx == N){
+            if (sum == S){
+                res++;
+            }
+            return;
+        }
+        dfs(idx+1, sum+arr[idx]);
+        dfs(idx+1, sum);
+    }
 }
