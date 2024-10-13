@@ -10,13 +10,15 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         String s = br.readLine();
-        int sum = 0;
+        long sum = 0;
+        long powValue = 1;
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
             int tmp = c -'0' -48;
             //System.out.println(tmp);
-            sum += tmp * (int)Math.pow(31, i);
+            sum += tmp * powValue;
+            powValue = (powValue * 31) % 1234567891;
         }
-        System.out.println(sum);
+        System.out.println(sum%1234567891);
     }
 }
