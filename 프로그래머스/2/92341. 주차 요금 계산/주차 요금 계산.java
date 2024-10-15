@@ -5,7 +5,7 @@ class Solution {
         int[] totalTime = new int[10001];
         int[] carTime = new int[10001];
         
-        for(int i = 0; i < 10001; i++){
+        for(int i = 0; i < carTime.length; i++){
             carTime[i] = -1;
         }
         
@@ -14,13 +14,14 @@ class Solution {
         int caseTime = fees[2];
         int caseFee = fees[3];
         
-        for(int i = 0; i < records.length; i++){
-            String[] tmp = records[i].split(" ");
-            String[] timeTmp = tmp[0].split(":");
+        for(String record : records){
+            String ttime = record.split(" ")[0];
+            int carNumber = Integer.parseInt(record.split(" ")[1]);
+            String command = record.split(" ")[2];
             
-            int time = Integer.parseInt(timeTmp[0]) * 60 + Integer.parseInt(timeTmp[1]);
-            int carNumber = Integer.parseInt(tmp[1]);
-            String command = tmp[2];
+            int hour = Integer.parseInt(ttime.split(":")[0]);
+            int min = Integer.parseInt(ttime.split(":")[1]);
+            int time = hour * 60 + min;
             
             if(command.equals("IN")){
                 carTime[carNumber] = time;
@@ -29,12 +30,15 @@ class Solution {
                 carTime[carNumber] = -1;
             }
         }
-        for(int j = 0; j < 10001; j++){
-            if(carTime[j] != -1){
-                totalTime[j] += (23 * 60) + 59 - carTime[j];
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        
+        for(int i = 0; i < 10001; i++){
+            if(carTime[i] != -1){
+                totalTime[i] += (23 * 60) + 59 - carTime[i];
             }
         }
-        ArrayList<Integer> list = new ArrayList<>();
+        
         for(int i = 0; i < 10001; i++){
             if(totalTime[i] != 0){
                 int fee = totalTime[i];
@@ -45,12 +49,15 @@ class Solution {
                 }
             }
         }
-        //System.out.println(Arrays.toString(carTime));
-        //System.out.println(list);
+        
+        
+        System.out.println(list);
         int[] answer = new int[list.size()];
-        for(int i = 0; i < list.size(); i++){
+        
+        for(int i = 0; i < answer.length; i++){
             answer[i] = list.get(i);
         }
+        
         return answer;
     }
 }
