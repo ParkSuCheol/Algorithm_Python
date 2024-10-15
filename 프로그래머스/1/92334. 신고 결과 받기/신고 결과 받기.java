@@ -2,8 +2,7 @@ import java.util.*;
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
         int[] answer = new int[id_list.length];
-        
-        HashSet<String> set = new HashSet<String>(Arrays.asList(report));
+        HashSet<String> set = new HashSet<>(Arrays.asList(report));
         HashMap<String, Integer> reportCount = new HashMap<>();
         HashMap<String, HashSet<String>> reportData = new HashMap<>();
         
@@ -20,18 +19,15 @@ class Solution {
         }
         
         for(String data : reportCount.keySet()){
-            int reportedCount = reportCount.get(data);
-            
-            if(reportedCount >= k){
+            int count = reportCount.get(data);
+            if(count >= k){
                 for(int i = 0; i < id_list.length; i++){
                     if(reportData.containsKey(id_list[i]) && reportData.get(id_list[i]).contains(data)){
                         answer[i]++;
                     }
                 }
             }
-            
         }
-        
         
         return answer;
     }
