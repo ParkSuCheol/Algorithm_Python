@@ -1,67 +1,65 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static char[][] map;
-    public static int N, M;
+    static char[][] arr;
+    static int N, M;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        // 세로 N, 가로 M
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-
-        map = new char[N][M];
-
-        for (int i = 0; i < N; i++) {
+        arr = new char[N][M];
+        for(int i = 0; i < N; i++) {
             String s = br.readLine();
-            for (int j = 0; j < M; j++) {
-                map[i][j] = s.charAt(j);
+            for(int j = 0; j < M; j++) {
+                arr[i][j] = s.charAt(j);
             }
         }
-        int res = width() + height();
+
+        int res = 0;
+        res = width() + height();
+
         System.out.println(res);
     }
 
-    public static int width(){
+    public static int width() {
         int cnt = 0;
-        boolean chk = false;
-        for (int i = 0; i < N; i++){
-            chk = false;
-            for (int j = 0; j < M; j++){
-                if (chk && map[i][j] == '-')
+        boolean v = false;
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < M; j++) {
+                if(arr[i][j] == '-' && v){
                     continue;
-                else{
-                    if (map[i][j] == '-'){
-                        chk = true;
-                        cnt++;
-                    }else{
-                        chk = false;
-                    }
+                }else if (arr[i][j] == '-' && !v){
+                    cnt += 1;
+                    v = true;
+                }else if (arr[i][j] != '-'){
+                    v = false;
                 }
             }
+            v = false;
         }
+
         return cnt;
     }
 
-    public static int height(){
+    public static int height() {
         int cnt = 0;
-        boolean chk = false;
-        for (int i = 0; i < M; i++){
-            chk = false;
-            for (int j = 0; j < N; j++){
-                if (chk && map[j][i] == '|')
+        boolean v = false;
+        for(int i = 0; i < M; i++){
+            for(int j = 0; j < N; j++){
+                if(arr[j][i] == '|' && v){
                     continue;
-                else{
-                    if (map[j][i] == '|'){
-                        chk = true;
-                        cnt++;
-                    }else{
-                        chk = false;
-                    }
+                }else if(arr[j][i] == '|' && !v){
+                    cnt += 1;
+                    v = true;
+                }else if(arr[j][i] != '|'){
+                    v = false;
                 }
             }
+            v = false;
         }
         return cnt;
     }
