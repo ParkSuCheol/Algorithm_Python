@@ -7,31 +7,33 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int[] arr = new int[n];
+        int[] output = new int[n];
+        boolean[] visit =  new boolean[n];
 
-        int[] arr = new int[N];
-        int[] output = new int[N];
-        for(int i = 0; i < N; i++){
+        for(int i = 0; i < n; i++){
             arr[i] = i+1;
         }
-        boolean[] v = new boolean[N];
-        permutation(arr, output, v, 0, 0, M);
+
+        dfs(arr, output, visit, 0, 0, m);
     }
 
-    public static void permutation(int[] arr, int[] output, boolean[] v, int k, int start, int end){
+    public static void dfs(int[] arr, int[] output, boolean[] visit, int k, int start, int end) {
         if (start == end){
             for (int i = 0; i < end; i++){
                 System.out.print(output[i] + " ");
             }
             System.out.println();
         }
-        for (int i = 0; i < arr.length; i++){
-            if (!v[i]){
-                v[i] = true;
+
+        for(int i = 0; i < arr.length; i++){
+            if(!visit[i]){
+                visit[i] = true;
                 output[start] = arr[i];
-                permutation(arr, output, v, k, start + 1, end);
-                v[i] = false;
+                dfs(arr, output, visit, k, start+1, end);
+                visit[i] = false;
             }
         }
     }
